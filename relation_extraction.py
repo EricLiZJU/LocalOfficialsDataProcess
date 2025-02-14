@@ -112,23 +112,33 @@ for person_id in PersonID_List:
 
 # 待查人员信息
 personal_id_tocheck = 110000001983
-personal_name_tocheck = '李强'
+personal_name_tocheck = '贾庆林'
 name = id2name(personal_id_tocheck, leader_infos)
 id = name2id(personal_name_tocheck, leader_infos)
-print(id)
 
 
 
 
 #输出某一年份所有人的工作经历
-data = get_time_related_experiences(1960, leader_infos)
+data = get_time_related_experiences(1980, leader_infos)
 
-
-
-
-names = []
+tocheck_infos = []
+related_infos = []
 for i in data:
-    names.append(i['prov_leader'])
+    if i['prov_leader'] == personal_name_tocheck:
+        tocheck_infos.append(i)
+
+print(tocheck_infos)
+for info in tocheck_infos:
+    for i in data:
+        if ((info['experience']['location'] in i['experience']['location']) or
+                (i['experience']['location'] in info['experience']['location'])):
+            related_infos.append(i)
+
+print(related_infos)
+
+
+
 
 """
 G = nx.DiGraph()
