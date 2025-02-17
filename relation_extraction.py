@@ -67,8 +67,6 @@ def name2id(prov_leader, leader_infos):
 
 
 
-
-
 df = pd.read_excel('/Users/lihongyang/Desktop/testdata.xlsx')
 PersonID_List = df['PersonID'].unique()
 
