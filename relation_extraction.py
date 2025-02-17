@@ -1,6 +1,8 @@
 import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
+import ollama
+import re
 
 # 检查某一年份是不是在begin_time和end_time之间
 def year_check(year, begin_date, end_date):
@@ -82,6 +84,8 @@ for person_id in PersonID_List:
         location1 = str(row.localKey1)       # 工作地点
         location2 = str(row.localKey2)
         location3 = str(row.localKey3)
+        if location1 == 'nan':
+            location1 = ''
         if location2 == 'nan':
             location2 = ''
         if location3 == 'nan':
@@ -112,7 +116,7 @@ for person_id in PersonID_List:
 
 # 待查人员信息
 personal_id_tocheck = 110000001983
-personal_name_tocheck = '贾庆林'
+personal_name_tocheck = '李盛霖'
 name = id2name(personal_id_tocheck, leader_infos)
 id = name2id(personal_name_tocheck, leader_infos)
 
@@ -120,7 +124,7 @@ id = name2id(personal_name_tocheck, leader_infos)
 
 
 #输出某一年份所有人的工作经历
-data = get_time_related_experiences(1980, leader_infos)
+data = get_time_related_experiences(2004, leader_infos)
 
 tocheck_infos = []
 related_infos = []
@@ -129,14 +133,31 @@ for i in data:
         tocheck_infos.append(i)
 
 print(tocheck_infos)
+tocheck_experience = tocheck_infos[0]['experience']['job_name']
+print(tocheck_experience)
 for info in tocheck_infos:
     for i in data:
         if ((info['experience']['location'] in i['experience']['location']) or
                 (i['experience']['location'] in info['experience']['location'])):
             related_infos.append(i)
 
-print(related_infos)
 
+for info in related_infos:
+    related_experience = info['experience']['job_name']
+    print(related_experience)
+    res = ollama.chat(model="deepseek-r1:7b",
+                      stream=False,
+                      messages=[{"role": "user",
+                                 "content":
+                                     f"只回答“是”或“否”，判断下列两个职务有没有上下级关系：{tocheck_experience} 和 {related_experience}"}],
+                      options={"temperature": 0})
+    response_content = re.sub(r'<think>.*?</think>', '', str(res.message.content), flags=re.DOTALL)
+    print(response_content)
+"""
+# deepseek判断上下级关系
+tocheck_experience = tocheck_infos[0]['experience']['job_name']
+print(tocheck_experience)
+"""
 
 
 
