@@ -1,0 +1,68 @@
+2025-02-28 16:23:32,975 - INFO - {'person_id': 210200012001, 'prov_leader': '孙春兰', 'experience': {'begin_time': Timestamp('1995-08-01 00:00:00'), 'end_time': Timestamp('1997-11-01 00:00:00'), 'location': '辽宁省', 'job_name': '辽宁省党委常委会/政治局省委常委'}}
+2025-02-28 16:23:32,975 - INFO - 正在进行0/22
+2025-02-28 16:23:32,976 - DEBUG - connect_tcp.started host='127.0.0.1' port=7890 local_address=None timeout=None socket_options=None
+2025-02-28 16:23:32,977 - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x16f615fa0>
+2025-02-28 16:23:32,977 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-28 16:23:32,977 - DEBUG - send_request_headers.complete
+2025-02-28 16:23:32,977 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-28 16:23:32,977 - DEBUG - send_request_body.complete
+2025-02-28 16:23:32,977 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-28 16:23:41,825 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Connection', b'close'), (b'Content-Length', b'1210'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Fri, 28 Feb 2025 08:23:41 GMT')])
+2025-02-28 16:23:41,826 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-02-28 16:23:41,826 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-28 16:23:41,826 - DEBUG - receive_response_body.complete
+2025-02-28 16:23:41,826 - DEBUG - response_closed.started
+2025-02-28 16:23:41,826 - DEBUG - response_closed.complete
+2025-02-28 16:23:41,827 - INFO - 正在进行1/22
+2025-02-28 16:23:41,827 - DEBUG - connect_tcp.started host='127.0.0.1' port=7890 local_address=None timeout=None socket_options=None
+2025-02-28 16:23:41,828 - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x16fe4f500>
+2025-02-28 16:23:41,828 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-28 16:23:41,828 - DEBUG - send_request_headers.complete
+2025-02-28 16:23:41,828 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-28 16:23:41,828 - DEBUG - send_request_body.complete
+2025-02-28 16:23:41,828 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-28 16:23:53,409 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Connection', b'close'), (b'Content-Length', b'1507'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Fri, 28 Feb 2025 08:23:53 GMT')])
+2025-02-28 16:23:53,410 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-02-28 16:23:53,410 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-28 16:23:53,410 - DEBUG - receive_response_body.complete
+2025-02-28 16:23:53,410 - DEBUG - response_closed.started
+2025-02-28 16:23:53,410 - DEBUG - response_closed.complete
+2025-02-28 16:23:53,411 - INFO - 正在进行2/22
+2025-02-28 16:23:53,412 - DEBUG - connect_tcp.started host='127.0.0.1' port=7890 local_address=None timeout=None socket_options=None
+2025-02-28 16:23:53,412 - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x16fe4d1c0>
+2025-02-28 16:23:53,412 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-28 16:23:53,413 - DEBUG - send_request_headers.complete
+2025-02-28 16:23:53,413 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-28 16:23:53,413 - DEBUG - send_request_body.complete
+2025-02-28 16:23:53,413 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-28 16:24:00,312 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Connection', b'close'), (b'Content-Length', b'980'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Fri, 28 Feb 2025 08:24:00 GMT')])
+2025-02-28 16:24:00,313 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-02-28 16:24:00,313 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-28 16:24:00,313 - DEBUG - receive_response_body.complete
+2025-02-28 16:24:00,313 - DEBUG - response_closed.started
+2025-02-28 16:24:00,313 - DEBUG - response_closed.complete
+2025-02-28 16:24:00,313 - INFO - 正在进行3/22
+2025-02-28 16:24:00,314 - DEBUG - connect_tcp.started host='127.0.0.1' port=7890 local_address=None timeout=None socket_options=None
+2025-02-28 16:24:00,314 - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x16f3d4650>
+2025-02-28 16:24:00,314 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-28 16:24:00,314 - DEBUG - send_request_headers.complete
+2025-02-28 16:24:00,314 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-28 16:24:00,314 - DEBUG - send_request_body.complete
+2025-02-28 16:24:00,314 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-28 16:24:09,276 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Connection', b'close'), (b'Content-Length', b'1268'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Fri, 28 Feb 2025 08:24:09 GMT')])
+2025-02-28 16:24:09,277 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-02-28 16:24:09,277 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-28 16:24:09,277 - DEBUG - receive_response_body.complete
+2025-02-28 16:24:09,277 - DEBUG - response_closed.started
+2025-02-28 16:24:09,277 - DEBUG - response_closed.complete
+2025-02-28 16:24:09,277 - INFO - 正在进行4/22
+2025-02-28 16:24:09,279 - DEBUG - connect_tcp.started host='127.0.0.1' port=7890 local_address=None timeout=None socket_options=None
+2025-02-28 16:24:09,279 - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x16fa70380>
+2025-02-28 16:24:09,279 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-28 16:24:09,279 - DEBUG - send_request_headers.complete
+2025-02-28 16:24:09,279 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-28 16:24:09,279 - DEBUG - send_request_body.complete
+2025-02-28 16:24:09,279 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-28 16:24:24,454 - DEBUG - receive_response_headers.failed exception=KeyboardInterrupt()
+2025-02-28 16:24:24,454 - DEBUG - response_closed.started
+2025-02-28 16:24:24,454 - DEBUG - response_closed.complete

@@ -7,7 +7,7 @@ from relation_extraction import *
 
 def annual_split(df, year):
     leader_infos = chart2info(df)
-    data = get_time_related_experiences(2004, leader_infos)
+    data = get_time_related_experiences(year, leader_infos)
 
     return data
 
@@ -21,4 +21,6 @@ if __name__ == "__main__":
 
         data_df = pd.DataFrame(data)
         data_df.to_excel(f'annual_data/{year}.xlsx')
+
+        print(f"{year}年数据已整理")
 

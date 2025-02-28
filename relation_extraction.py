@@ -3,6 +3,12 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import ollama
 import re
+import logging
+
+logging.basicConfig(filename='example.log',  # 日志文件
+                    level=logging.DEBUG,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
+
 
 # 检查某一年份是不是在begin_time和end_time之间
 def year_check(year, begin_date, end_date):
@@ -111,73 +117,130 @@ def chart2info(df):
 
     return leader_infos
 
+# deepseek判断上下级关系
+def deepseek_judge(tocheck_experience, related_experience):
+    res = ollama.chat(model="deepseek-r1:7b",
+                      stream=False,
+                      messages=[{"role": "user",
+                                 "content":
+                                     f"只回答“是”或“否”，判断后面的职务是否为前面职务的上级：{tocheck_experience} 和 {related_experience}"}],
+                      options={"temperature": 0})
+    response_content = re.sub(r'<think>.*?</think>', '', str(res.message.content), flags=re.DOTALL)
+
+    return response_content
+
+# 对某特定id检索上下级关系
+def superior_judge(personal_id_tocheck, data):
+    tocheck_infos = []
+    superior_relations = []
+
+    for i in data:
+        if i['person_id'] == personal_id_tocheck:
+            tocheck_infos.append(i)
+
+    for tocheck_info in tocheck_infos:
+        print(tocheck_info)
+        logging.info(tocheck_info)
+
+        related_infos = []
+        superior_infos = []
+
+        tocheck_experience = tocheck_info['experience']['job_name']
+        for info in tocheck_infos:
+            for i in data:
+                if ((info['experience']['location'] in i['experience']['location']) or
+                        (i['experience']['location'] in info['experience']['location'])):
+                    related_infos.append(i)
+
+        info_count = 0
+        for info in related_infos:
+            print(f"正在进行{info_count}/{len(related_infos)}")
+            logging.info(f"正在进行{info_count}/{len(related_infos)}")
+            related_experience = info['experience']['job_name']
+            response_content = deepseek_judge(tocheck_experience, related_experience)
+            info_count += 1
+
+            if "是" in response_content:
+                superior_infos.append(info)
+
+        superior_relation = dict(person_id=personal_id_tocheck,
+                                 name=name,
+                                 experience=tocheck_info['experience'],
+                                 superiors=superior_infos)
+        superior_relations.append(superior_relation)
+
+    return superior_relations
+
+
+
+
+
 if __name__ == '__main__':
 
     df = pd.read_excel('/Users/lihongyang/Desktop/testdata.xlsx')
     leader_infos = chart2info(df)
-    print(leader_infos)
 
     # 待查人员信息
-    personal_id_tocheck = 110000001983
+    personal_id_tocheck = 210200012001
     personal_name_tocheck = '孙春兰'
     name = id2name(personal_id_tocheck, leader_infos)
     id = name2id(personal_name_tocheck, leader_infos)
 
 
 
-
     #输出某一年份所有人的工作经历
     data = get_time_related_experiences(1996, leader_infos)
 
+    superior_relations = superior_judge(personal_id_tocheck, data)
+    print(superior_relations)
 
+"""
     tocheck_infos = []
-    related_infos = []
+
     for i in data:
-        if i['prov_leader'] == personal_name_tocheck:
+        if i['person_id'] == personal_id_tocheck:
             tocheck_infos.append(i)
 
-    print(tocheck_infos)
-    tocheck_experience = tocheck_infos[0]['experience']['job_name']
-    print(tocheck_experience)
-    for info in tocheck_infos:
-        for i in data:
-            if ((info['experience']['location'] in i['experience']['location']) or
-                    (i['experience']['location'] in info['experience']['location'])):
-                related_infos.append(i)
+    for tocheck_info in tocheck_infos:
+        print(tocheck_info)
+        logging.info(tocheck_info)
+
+        related_infos = []
+        superior_infos = []
+
+        tocheck_experience = tocheck_info['experience']['job_name']
+        for info in tocheck_infos:
+            for i in data:
+                if ((info['experience']['location'] in i['experience']['location']) or
+                        (i['experience']['location'] in info['experience']['location'])):
+                    related_infos.append(i)
+
+        info_count = 0
+        for info in related_infos:
+            print(f"正在进行{info_count}/{len(related_infos)}")
+            logging.info(f"正在进行{info_count}/{len(related_infos)}")
+            related_experience = info['experience']['job_name']
+            res = ollama.chat(model="deepseek-r1:7b",
+                              stream=False,
+                              messages=[{"role": "user",
+                                         "content":
+                                             f"只回答“是”或“否”，判断后面的职务是否为前面职务的上级：{tocheck_experience} 和 {related_experience}"}],
+                              options={"temperature": 0})
+            response_content = re.sub(r'<think>.*?</think>', '', str(res.message.content), flags=re.DOTALL)
+            info_count += 1
+
+            if "是" in response_content:
+                superior_infos.append(info)
+
+        superior_relation = dict(person_id=personal_id_tocheck,
+                                 name=name,
+                                 experience=tocheck_info['experience'],
+                                 superiors=superior_infos)
+
+        print(superior_relation)
 
 
-    for info in related_infos:
-        related_experience = info['experience']['job_name']
-        print(related_experience)
-        res = ollama.chat(model="deepseek-r1:7b",
-                          stream=False,
-                          messages=[{"role": "user",
-                                     "content":
-                                         f"只回答“是”或“否”，判断下列两个职务有没有上下级关系：{tocheck_experience} 和 {related_experience}"}],
-                          options={"temperature": 0})
-        #response_content = re.sub(r'<think>.*?</think>', '', str(res.message.content), flags=re.DOTALL)
-        response_content = str(res.message.content)
-        print(response_content)
-    """
-    # deepseek判断上下级关系
-    tocheck_experience = tocheck_infos[0]['experience']['job_name']
-    print(tocheck_experience)
-    """
-
-
-
-    """
-    G = nx.DiGraph()
-    G.add_nodes_from(names)
-    
-    plt.rcParams['font.sans-serif'] = 'STHeiti'
-    plt.figure(figsize = (12,10))
-    
-    nx.draw(G, with_labels=True)
-    plt.show()
-    """
-
-
+"""
 
 
 
