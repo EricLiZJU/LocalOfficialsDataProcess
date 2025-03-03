@@ -2,10 +2,12 @@ import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
 import openpyxl
+from openpyxl import Workbook
 import ollama
 import re
 import logging
 import time
+import os
 
 logging.basicConfig(filename='example.log',  # 日志文件
                     level=logging.DEBUG,
@@ -145,7 +147,7 @@ def superior_judge(personal_id_tocheck, data):
 
     for tocheck_info in tocheck_infos:
         person_count += 1
-        print(f"第{person_count}/{len(tocheck_infos)}位查询人，待查询人姓名: {tocheck_info['prov_leader']}，待查询人ID: {tocheck_info['person_id']}")
+        print(f"待查询人第{person_count}/{len(tocheck_infos)}个职务，待查询人姓名: {tocheck_info['prov_leader']}，待查询人ID: {tocheck_info['person_id']}")
         print(f"待查询人职务: {tocheck_info['experience']}")
         logging.info(tocheck_info)
 
@@ -161,6 +163,8 @@ def superior_judge(personal_id_tocheck, data):
 
         info_count = 0
         for info in related_infos:
+            if info["person_id"] == personal_id_tocheck:
+                continue
             start_time = time.time()
             related_experience = info['experience']['job_name']
             response_content = deepseek_judge(tocheck_experience, related_experience)
@@ -179,9 +183,16 @@ def superior_judge(personal_id_tocheck, data):
                                  superiors=superior_infos)
         superior_relations.append(superior_relation)
 
+    print(superior_relations)
+
     return superior_relations
 
 def run(filepath, year):
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "AllData"
+    resfilepath = f"results/{year}.xlsx"
+    wb.save(resfilepath)
     df = pd.read_excel(filepath)
     leader_infos = chart2info(df)
     leader_ids = []
@@ -191,21 +202,30 @@ def run(filepath, year):
     total_num = len(leader_ids)
     count = 0
 
+    if not os.path.exists(resfilepath):
+        df_init = pd.DataFrame(columns=["person_id", "name", "experience", "superiors"])
+        df_init.to_excel(resfilepath, sheet_name="AllData", index=False)
+
     for leader_id in leader_ids:
         count += 1
         print(f"------------第{count}/{total_num}位查询人------------")
         data = get_time_related_experiences(year, leader_infos)
 
         superior_relations = superior_judge(leader_id, data)
-        print(superior_relations)
         superior_relations_df = pd.DataFrame(superior_relations)
-        superior_relations_df.to_excel(f"results/{year}.xlsx", index=False)
+        existing_data = pd.read_excel(resfilepath, sheet_name='AllData')
+        df_combined = pd.concat([existing_data, df], ignore_index=True)
+
+        with pd.ExcelWriter(resfilepath, mode='w', engine='openpyxl') as writer:
+            df_combined.to_excel(writer, sheet_name="AllData", index=False)
+        print(f"第{count}/{total_num}位查询人数据已追加")
+    print("所有数据已处理完成")
 
 
 if __name__ == '__main__':
-    filepath = '/Users/lihongyang/Desktop/testdata.xlsx'
+    filepath = 'testdata.xlsx'
 
-    run(filepath, 1996)
+    run(filepath, 1981)
 
 
 
