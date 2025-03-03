@@ -1,9 +1,11 @@
 import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
+import openpyxl
 import ollama
 import re
 import logging
+import time
 
 logging.basicConfig(filename='example.log',  # 日志文件
                     level=logging.DEBUG,
@@ -133,13 +135,18 @@ def deepseek_judge(tocheck_experience, related_experience):
 def superior_judge(personal_id_tocheck, data):
     tocheck_infos = []
     superior_relations = []
+    name = id2name(personal_id_tocheck, data)
 
     for i in data:
         if i['person_id'] == personal_id_tocheck:
             tocheck_infos.append(i)
 
+    person_count = 0
+
     for tocheck_info in tocheck_infos:
-        print(tocheck_info)
+        person_count += 1
+        print(f"第{person_count}/{len(tocheck_infos)}位查询人，待查询人姓名: {tocheck_info['prov_leader']}，待查询人ID: {tocheck_info['person_id']}")
+        print(f"待查询人职务: {tocheck_info['experience']}")
         logging.info(tocheck_info)
 
         related_infos = []
@@ -154,12 +161,15 @@ def superior_judge(personal_id_tocheck, data):
 
         info_count = 0
         for info in related_infos:
-            print(f"正在进行{info_count}/{len(related_infos)}")
-            logging.info(f"正在进行{info_count}/{len(related_infos)}")
+            start_time = time.time()
             related_experience = info['experience']['job_name']
             response_content = deepseek_judge(tocheck_experience, related_experience)
             info_count += 1
+            end_time = time.time()
 
+            execution_time = end_time - start_time
+            print(f"已判断{info_count}/{len(related_infos)}，用时{execution_time}秒")
+            logging.info(f"已判断{info_count}/{len(related_infos)}，用时{execution_time}秒")
             if "是" in response_content:
                 superior_infos.append(info)
 
@@ -171,78 +181,31 @@ def superior_judge(personal_id_tocheck, data):
 
     return superior_relations
 
+def run(filepath, year):
+    df = pd.read_excel(filepath)
+    leader_infos = chart2info(df)
+    leader_ids = []
+    for leader_info in leader_infos:
+        leader_ids.append(leader_info["person_id"])
+    leader_ids = set(leader_ids)
+    total_num = len(leader_ids)
+    count = 0
 
+    for leader_id in leader_ids:
+        count += 1
+        print(f"------------第{count}/{total_num}位查询人------------")
+        data = get_time_related_experiences(year, leader_infos)
 
+        superior_relations = superior_judge(leader_id, data)
+        print(superior_relations)
+        superior_relations_df = pd.DataFrame(superior_relations)
+        superior_relations_df.to_excel(f"results/{year}.xlsx", index=False)
 
 
 if __name__ == '__main__':
+    filepath = '/Users/lihongyang/Desktop/testdata.xlsx'
 
-    df = pd.read_excel('/Users/lihongyang/Desktop/testdata.xlsx')
-    leader_infos = chart2info(df)
-
-    # 待查人员信息
-    personal_id_tocheck = 210200012001
-    personal_name_tocheck = '孙春兰'
-    name = id2name(personal_id_tocheck, leader_infos)
-    id = name2id(personal_name_tocheck, leader_infos)
-
-
-
-    #输出某一年份所有人的工作经历
-    data = get_time_related_experiences(1996, leader_infos)
-
-    superior_relations = superior_judge(personal_id_tocheck, data)
-    print(superior_relations)
-
-"""
-    tocheck_infos = []
-
-    for i in data:
-        if i['person_id'] == personal_id_tocheck:
-            tocheck_infos.append(i)
-
-    for tocheck_info in tocheck_infos:
-        print(tocheck_info)
-        logging.info(tocheck_info)
-
-        related_infos = []
-        superior_infos = []
-
-        tocheck_experience = tocheck_info['experience']['job_name']
-        for info in tocheck_infos:
-            for i in data:
-                if ((info['experience']['location'] in i['experience']['location']) or
-                        (i['experience']['location'] in info['experience']['location'])):
-                    related_infos.append(i)
-
-        info_count = 0
-        for info in related_infos:
-            print(f"正在进行{info_count}/{len(related_infos)}")
-            logging.info(f"正在进行{info_count}/{len(related_infos)}")
-            related_experience = info['experience']['job_name']
-            res = ollama.chat(model="deepseek-r1:7b",
-                              stream=False,
-                              messages=[{"role": "user",
-                                         "content":
-                                             f"只回答“是”或“否”，判断后面的职务是否为前面职务的上级：{tocheck_experience} 和 {related_experience}"}],
-                              options={"temperature": 0})
-            response_content = re.sub(r'<think>.*?</think>', '', str(res.message.content), flags=re.DOTALL)
-            info_count += 1
-
-            if "是" in response_content:
-                superior_infos.append(info)
-
-        superior_relation = dict(person_id=personal_id_tocheck,
-                                 name=name,
-                                 experience=tocheck_info['experience'],
-                                 superiors=superior_infos)
-
-        print(superior_relation)
-
-
-"""
-
-
+    run(filepath, 1996)
 
 
 
