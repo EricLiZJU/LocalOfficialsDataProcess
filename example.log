@@ -6007,3 +6007,112 @@
 2025-03-03 16:14:43,924 - DEBUG - receive_response_headers.failed exception=KeyboardInterrupt()
 2025-03-03 16:14:43,924 - DEBUG - response_closed.started
 2025-03-03 16:14:43,924 - DEBUG - response_closed.complete
+2025-03-03 16:19:01,192 - INFO - {'person_id': 310000001991, 'prov_leader': '黄菊', 'experience': {'begin_time': Timestamp('1980-01-01 00:00:00'), 'end_time': Timestamp('1982-01-01 00:00:00'), 'location': '上海市', 'job_name': '上海市上海石化通用机械制造公司副经理'}}
+2025-03-03 16:19:01,193 - DEBUG - connect_tcp.started host='127.0.0.1' port=7890 local_address=None timeout=None socket_options=None
+2025-03-03 16:19:01,194 - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x16c909f10>
+2025-03-03 16:19:01,194 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-03-03 16:19:01,194 - DEBUG - send_request_headers.complete
+2025-03-03 16:19:01,194 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-03-03 16:19:01,194 - DEBUG - send_request_body.complete
+2025-03-03 16:19:01,194 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-03-03 16:19:12,406 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Connection', b'close'), (b'Content-Length', b'1046'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Mon, 03 Mar 2025 08:19:12 GMT')])
+2025-03-03 16:19:12,409 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-03-03 16:19:12,410 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-03-03 16:19:12,410 - DEBUG - receive_response_body.complete
+2025-03-03 16:19:12,410 - DEBUG - response_closed.started
+2025-03-03 16:19:12,410 - DEBUG - response_closed.complete
+2025-03-03 16:19:12,411 - INFO - 已判断1/34，用时11.218761920928955秒
+2025-03-03 16:19:12,413 - DEBUG - connect_tcp.started host='127.0.0.1' port=7890 local_address=None timeout=None socket_options=None
+2025-03-03 16:19:12,414 - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x16db496d0>
+2025-03-03 16:19:12,414 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-03-03 16:19:12,415 - DEBUG - send_request_headers.complete
+2025-03-03 16:19:12,415 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-03-03 16:19:12,415 - DEBUG - send_request_body.complete
+2025-03-03 16:19:12,415 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-03-03 16:19:22,166 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Connection', b'close'), (b'Content-Length', b'1277'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Mon, 03 Mar 2025 08:19:22 GMT')])
+2025-03-03 16:19:22,169 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-03-03 16:19:22,170 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-03-03 16:19:22,170 - DEBUG - receive_response_body.complete
+2025-03-03 16:19:22,170 - DEBUG - response_closed.started
+2025-03-03 16:19:22,170 - DEBUG - response_closed.complete
+2025-03-03 16:19:22,171 - INFO - 已判断2/34，用时9.75942087173462秒
+2025-03-03 16:19:22,174 - DEBUG - connect_tcp.started host='127.0.0.1' port=7890 local_address=None timeout=None socket_options=None
+2025-03-03 16:19:22,175 - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x16cf56150>
+2025-03-03 16:19:22,175 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-03-03 16:19:22,175 - DEBUG - send_request_headers.complete
+2025-03-03 16:19:22,175 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-03-03 16:19:22,176 - DEBUG - send_request_body.complete
+2025-03-03 16:19:22,176 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-03-03 16:19:35,976 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Connection', b'close'), (b'Content-Length', b'1593'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Mon, 03 Mar 2025 08:19:35 GMT')])
+2025-03-03 16:19:35,978 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-03-03 16:19:35,979 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-03-03 16:19:35,979 - DEBUG - receive_response_body.complete
+2025-03-03 16:19:35,979 - DEBUG - response_closed.started
+2025-03-03 16:19:35,980 - DEBUG - response_closed.complete
+2025-03-03 16:19:35,980 - INFO - 已判断3/34，用时13.80910611152649秒
+2025-03-03 16:19:35,985 - DEBUG - connect_tcp.started host='127.0.0.1' port=7890 local_address=None timeout=None socket_options=None
+2025-03-03 16:19:35,985 - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x14d7e9fa0>
+2025-03-03 16:19:35,985 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-03-03 16:19:35,986 - DEBUG - send_request_headers.complete
+2025-03-03 16:19:35,986 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-03-03 16:19:35,986 - DEBUG - send_request_body.complete
+2025-03-03 16:19:35,986 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-03-03 16:19:48,583 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Connection', b'close'), (b'Content-Length', b'1677'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Mon, 03 Mar 2025 08:19:48 GMT')])
+2025-03-03 16:19:48,583 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-03-03 16:19:48,583 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-03-03 16:19:48,583 - DEBUG - receive_response_body.complete
+2025-03-03 16:19:48,583 - DEBUG - response_closed.started
+2025-03-03 16:19:48,584 - DEBUG - response_closed.complete
+2025-03-03 16:19:48,584 - INFO - 已判断4/34，用时12.603307008743286秒
+2025-03-03 16:19:48,584 - DEBUG - connect_tcp.started host='127.0.0.1' port=7890 local_address=None timeout=None socket_options=None
+2025-03-03 16:19:48,584 - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x16c90b9e0>
+2025-03-03 16:19:48,584 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-03-03 16:19:48,585 - DEBUG - send_request_headers.complete
+2025-03-03 16:19:48,585 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-03-03 16:19:48,585 - DEBUG - send_request_body.complete
+2025-03-03 16:19:48,585 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-03-03 16:19:57,635 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Connection', b'close'), (b'Content-Length', b'1263'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Mon, 03 Mar 2025 08:19:57 GMT')])
+2025-03-03 16:19:57,635 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-03-03 16:19:57,635 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-03-03 16:19:57,635 - DEBUG - receive_response_body.complete
+2025-03-03 16:19:57,635 - DEBUG - response_closed.started
+2025-03-03 16:19:57,635 - DEBUG - response_closed.complete
+2025-03-03 16:19:57,636 - INFO - 已判断5/34，用时9.052093267440796秒
+2025-03-03 16:19:57,637 - DEBUG - connect_tcp.started host='127.0.0.1' port=7890 local_address=None timeout=None socket_options=None
+2025-03-03 16:19:57,637 - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x16cf56420>
+2025-03-03 16:19:57,637 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-03-03 16:19:57,638 - DEBUG - send_request_headers.complete
+2025-03-03 16:19:57,638 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-03-03 16:19:57,638 - DEBUG - send_request_body.complete
+2025-03-03 16:19:57,638 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-03-03 16:20:09,382 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Connection', b'close'), (b'Content-Length', b'1636'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Mon, 03 Mar 2025 08:20:09 GMT')])
+2025-03-03 16:20:09,384 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-03-03 16:20:09,384 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-03-03 16:20:09,384 - DEBUG - receive_response_body.complete
+2025-03-03 16:20:09,385 - DEBUG - response_closed.started
+2025-03-03 16:20:09,385 - DEBUG - response_closed.complete
+2025-03-03 16:20:09,386 - INFO - 已判断6/34，用时11.749705076217651秒
+2025-03-03 16:20:09,388 - DEBUG - connect_tcp.started host='127.0.0.1' port=7890 local_address=None timeout=None socket_options=None
+2025-03-03 16:20:09,388 - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x16db39f10>
+2025-03-03 16:20:09,388 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-03-03 16:20:09,388 - DEBUG - send_request_headers.complete
+2025-03-03 16:20:09,389 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-03-03 16:20:09,389 - DEBUG - send_request_body.complete
+2025-03-03 16:20:09,389 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-03-03 16:20:16,828 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Connection', b'close'), (b'Content-Length', b'1136'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Mon, 03 Mar 2025 08:20:16 GMT')])
+2025-03-03 16:20:16,828 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-03-03 16:20:16,828 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-03-03 16:20:16,829 - DEBUG - receive_response_body.complete
+2025-03-03 16:20:16,829 - DEBUG - response_closed.started
+2025-03-03 16:20:16,829 - DEBUG - response_closed.complete
+2025-03-03 16:20:16,829 - INFO - 已判断7/34，用时7.443047285079956秒
+2025-03-03 16:20:16,830 - DEBUG - connect_tcp.started host='127.0.0.1' port=7890 local_address=None timeout=None socket_options=None
+2025-03-03 16:20:16,830 - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x16db38410>
+2025-03-03 16:20:16,830 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-03-03 16:20:16,830 - DEBUG - send_request_headers.complete
+2025-03-03 16:20:16,830 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-03-03 16:20:16,830 - DEBUG - send_request_body.complete
+2025-03-03 16:20:16,830 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-03-03 16:20:17,214 - DEBUG - receive_response_headers.failed exception=KeyboardInterrupt()
+2025-03-03 16:20:17,214 - DEBUG - response_closed.started
+2025-03-03 16:20:17,214 - DEBUG - response_closed.complete

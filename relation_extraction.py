@@ -214,7 +214,7 @@ def run(filepath, year):
         superior_relations = superior_judge(leader_id, data)
         superior_relations_df = pd.DataFrame(superior_relations)
         existing_data = pd.read_excel(resfilepath, sheet_name='AllData')
-        df_combined = pd.concat([existing_data, df], ignore_index=True)
+        df_combined = pd.concat([existing_data, superior_relations_df], ignore_index=True)
 
         with pd.ExcelWriter(resfilepath, mode='w', engine='openpyxl') as writer:
             df_combined.to_excel(writer, sheet_name="AllData", index=False)
