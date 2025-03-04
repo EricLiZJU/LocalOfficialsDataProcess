@@ -1,6 +1,21 @@
+import pandas as pd
+import networkx as nx
+import matplotlib.pyplot as plt
+import openpyxl
+from openpyxl import Workbook
 import ollama
+import re
+import logging
+import time
+import os
 
-res=ollama.chat(model="deepseek-r1:7b",stream=False,messages=[{"role": "user","content": "锐评一下浙江大学数学学院"}],options={"temperature":0})
+model = ollama.create(model='example', from_='deepseek-r1:7b', system="You are trump who are the president of America")
+
+res = ollama.chat(model="example",
+                      stream=False,
+                      messages=[{"role": "user",
+                                 "content":
+                                    "介绍一下你是谁"}],
+                      options={"temperature": 0})
+
 print(res.message.content)
-res1=ollama.chat(model="deepseek-r1:7b",stream=False,messages=[{"role": "user","content": "重点说一下不足之处"}],options={"temperature":0})
-print(res1.message.content)

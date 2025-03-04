@@ -8,10 +8,16 @@ import re
 import logging
 import time
 import os
+import json
 
 logging.basicConfig(filename='example.log',  # 日志文件
                     level=logging.DEBUG,
                     format='%(asctime)s - %(levelname)s - %(message)s')
+
+with open('OfficialRank.json', 'r', encoding='utf-8') as file:
+    offcial_rank = json.load(file)
+
+
 
 
 # 检查某一年份是不是在begin_time和end_time之间
@@ -100,9 +106,16 @@ def chart2info(df):
                 location3 = ''
             location = location1 + location2 + location3
             type = row.type                      # 工作单位性质
+            rank = row.rank                      # 行政级别
+            if rank in offcial_rank.keys():
+                rank = offcial_rank[rank]
+            else:
+                rank = 0
             jobKey1 = str(row.jobKey1)
             jobKey2 = str(row.jobKey2)
             jobKey3 = str(row.jobKey3)
+            if jobKey1 == 'nan':
+                jobKey1 = '地点缺失'
             if jobKey2 == 'nan':
                 jobKey2 = ''
             if jobKey3 == 'nan':
@@ -112,6 +125,8 @@ def chart2info(df):
             experience = dict(begin_time=begin_time,
                               end_time=end_time,
                               location=str(location1)+str(location2)+str(location3),
+                              type=type,
+                              rank=rank,
                               job_name=job_name)
             experience_list.append(experience)
 
@@ -157,8 +172,10 @@ def superior_judge(personal_id_tocheck, data):
         tocheck_experience = tocheck_info['experience']['job_name']
         for info in tocheck_infos:
             for i in data:
-                if ((info['experience']['location'] in i['experience']['location']) or
-                        (i['experience']['location'] in info['experience']['location'])):
+                if (((((info['experience']['location'] in i['experience']['location']) or
+                        (i['experience']['location'] in info['experience']['location'])))
+                        and (i['experience']['type'] == info['experience']['type']))
+                        and (info['experience']['rank'] <= i['experience']['rank'])):
                     related_infos.append(i)
 
         info_count = 0
@@ -201,12 +218,19 @@ def run(filepath, year):
     leader_ids = set(leader_ids)
     total_num = len(leader_ids)
     count = 0
+    ollama.create(model='JudgeModel', from_='deepseek-r1:7b',
+                  system="You're a language model for determining the hierarchical relationships of Chinese officials.")
 
     if not os.path.exists(resfilepath):
         df_init = pd.DataFrame(columns=["person_id", "name", "experience", "superiors"])
         df_init.to_excel(resfilepath, sheet_name="AllData", index=False)
 
     for leader_id in leader_ids:
+        if (count % 20) == 19:
+            ollama.delete(model='JudgeModel')
+            ollama.create(model='JudgeModel', from_='deepseek-r1:7b',
+                                  system="You're a language model for determining the hierarchical relationships of Chinese officials.")
+            print("---提示：模型已刷新---")
         count += 1
         print(f"------------第{count}/{total_num}位查询人------------")
         data = get_time_related_experiences(year, leader_infos)
