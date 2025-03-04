@@ -175,7 +175,9 @@ def superior_judge(personal_id_tocheck, data):
                 if (((((info['experience']['location'] in i['experience']['location']) or
                         (i['experience']['location'] in info['experience']['location'])))
                         and (i['experience']['type'] == info['experience']['type']))
-                        and (info['experience']['rank'] <= i['experience']['rank'])):
+                        and ((info['experience']['rank'] <= i['experience']['rank'])
+                        or (info['experience']['rank'] == 0)
+                        or (i['experience']['rank'] == 0))):
                     related_infos.append(i)
 
         info_count = 0
