@@ -6417,3 +6417,68 @@
 2025-03-04 15:28:55,979 - DEBUG - receive_response_headers.failed exception=KeyboardInterrupt()
 2025-03-04 15:28:55,979 - DEBUG - response_closed.started
 2025-03-04 15:28:55,979 - DEBUG - response_closed.complete
+2025-03-05 15:00:24,638 - DEBUG - connect_tcp.started host='127.0.0.1' port=7890 local_address=None timeout=None socket_options=None
+2025-03-05 15:00:24,640 - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x12e83b470>
+2025-03-05 15:00:24,640 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-03-05 15:00:24,640 - DEBUG - send_request_headers.complete
+2025-03-05 15:00:24,640 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-03-05 15:00:24,640 - DEBUG - send_request_body.complete
+2025-03-05 15:00:24,640 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-03-05 15:00:24,679 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Connection', b'close'), (b'Content-Length', b'20'), (b'Content-Type', b'application/json'), (b'Date', b'Wed, 05 Mar 2025 07:00:24 GMT')])
+2025-03-05 15:00:24,679 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/create "HTTP/1.1 200 OK"
+2025-03-05 15:00:24,679 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-03-05 15:00:24,679 - DEBUG - receive_response_body.complete
+2025-03-05 15:00:24,679 - DEBUG - response_closed.started
+2025-03-05 15:00:24,680 - DEBUG - response_closed.complete
+2025-03-05 15:00:38,315 - DEBUG - connect_tcp.started host='127.0.0.1' port=7890 local_address=None timeout=None socket_options=None
+2025-03-05 15:00:38,316 - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x16e57ba70>
+2025-03-05 15:00:38,316 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-03-05 15:00:38,316 - DEBUG - send_request_headers.complete
+2025-03-05 15:00:38,316 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-03-05 15:00:38,317 - DEBUG - send_request_body.complete
+2025-03-05 15:00:38,317 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-03-05 15:00:38,348 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Connection', b'close'), (b'Content-Length', b'20'), (b'Content-Type', b'application/json'), (b'Date', b'Wed, 05 Mar 2025 07:00:38 GMT')])
+2025-03-05 15:00:38,349 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/create "HTTP/1.1 200 OK"
+2025-03-05 15:00:38,349 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-03-05 15:00:38,349 - DEBUG - receive_response_body.complete
+2025-03-05 15:00:38,349 - DEBUG - response_closed.started
+2025-03-05 15:00:38,349 - DEBUG - response_closed.complete
+2025-03-05 15:00:38,351 - INFO - {'person_id': 310000001991, 'prov_leader': '黄菊', 'experience': {'begin_time': Timestamp('1980-01-01 00:00:00'), 'end_time': Timestamp('1982-01-01 00:00:00'), 'location': '上海市', 'type': '地方企业', 'rank': 6, 'job_name': '上海市上海石化通用机械制造公司副经理'}}
+2025-03-05 15:00:38,351 - DEBUG - connect_tcp.started host='127.0.0.1' port=7890 local_address=None timeout=None socket_options=None
+2025-03-05 15:00:38,351 - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x16fe2d910>
+2025-03-05 15:00:38,351 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-03-05 15:00:38,351 - DEBUG - send_request_headers.complete
+2025-03-05 15:00:38,351 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-03-05 15:00:38,351 - DEBUG - send_request_body.complete
+2025-03-05 15:00:38,351 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-03-05 15:00:55,176 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Connection', b'close'), (b'Content-Length', b'1595'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Wed, 05 Mar 2025 07:00:55 GMT')])
+2025-03-05 15:00:55,180 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-03-05 15:00:55,180 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-03-05 15:00:55,180 - DEBUG - receive_response_body.complete
+2025-03-05 15:00:55,181 - DEBUG - response_closed.started
+2025-03-05 15:00:55,181 - DEBUG - response_closed.complete
+2025-03-05 15:00:55,184 - INFO - 已判断1/5，用时16.833256006240845秒
+2025-03-05 15:00:55,189 - DEBUG - connect_tcp.started host='127.0.0.1' port=7890 local_address=None timeout=None socket_options=None
+2025-03-05 15:00:55,189 - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x16eef3ec0>
+2025-03-05 15:00:55,189 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-03-05 15:00:55,189 - DEBUG - send_request_headers.complete
+2025-03-05 15:00:55,189 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-03-05 15:00:55,189 - DEBUG - send_request_body.complete
+2025-03-05 15:00:55,190 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-03-05 15:01:06,827 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Connection', b'close'), (b'Content-Length', b'1677'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Date', b'Wed, 05 Mar 2025 07:01:06 GMT')])
+2025-03-05 15:01:06,827 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-03-05 15:01:06,827 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-03-05 15:01:06,828 - DEBUG - receive_response_body.complete
+2025-03-05 15:01:06,828 - DEBUG - response_closed.started
+2025-03-05 15:01:06,828 - DEBUG - response_closed.complete
+2025-03-05 15:01:06,828 - INFO - 已判断2/5，用时11.642837047576904秒
+2025-03-05 15:01:06,829 - DEBUG - connect_tcp.started host='127.0.0.1' port=7890 local_address=None timeout=None socket_options=None
+2025-03-05 15:01:06,830 - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x30299a780>
+2025-03-05 15:01:06,830 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-03-05 15:01:06,830 - DEBUG - send_request_headers.complete
+2025-03-05 15:01:06,830 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-03-05 15:01:06,830 - DEBUG - send_request_body.complete
+2025-03-05 15:01:06,830 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-03-05 15:01:12,328 - DEBUG - receive_response_headers.failed exception=KeyboardInterrupt()
+2025-03-05 15:01:12,328 - DEBUG - response_closed.started
+2025-03-05 15:01:12,329 - DEBUG - response_closed.complete

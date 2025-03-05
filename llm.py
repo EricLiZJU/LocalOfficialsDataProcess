@@ -8,7 +8,11 @@ import re
 import logging
 import time
 import os
+import torch
 
+device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+print(device)
+"""
 model = ollama.create(model='example', from_='deepseek-r1:7b', system="You are trump who are the president of America")
 
 res = ollama.chat(model="example",
@@ -18,4 +22,4 @@ res = ollama.chat(model="example",
                                     "介绍一下你是谁"}],
                       options={"temperature": 0})
 
-print(res.message.content)
+print(res.message.content)"""

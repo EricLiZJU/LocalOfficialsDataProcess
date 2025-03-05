@@ -9,6 +9,7 @@ import logging
 import time
 import os
 import json
+import torch
 
 logging.basicConfig(filename='example.log',  # 日志文件
                     level=logging.DEBUG,
@@ -17,7 +18,7 @@ logging.basicConfig(filename='example.log',  # 日志文件
 with open('OfficialRank.json', 'r', encoding='utf-8') as file:
     offcial_rank = json.load(file)
 
-
+device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
 
 
 # 检查某一年份是不是在begin_time和end_time之间
@@ -172,10 +173,11 @@ def superior_judge(personal_id_tocheck, data):
         tocheck_experience = tocheck_info['experience']['job_name']
         for info in tocheck_infos:
             for i in data:
-                if (((((info['experience']['location'] in i['experience']['location']) or
+                if (((((info['experience']['location'] == i['experience']['location']) or
                         (i['experience']['location'] in info['experience']['location'])))
                         and (i['experience']['type'] == info['experience']['type']))
-                        and ((info['experience']['rank'] <= i['experience']['rank'])
+                        and ((i['experience']['rank'] - info['experience']['rank'] >= 0) and
+                             (i['experience']['rank'] - info['experience']['rank'] <= 3)
                         or (info['experience']['rank'] == 0)
                         or (i['experience']['rank'] == 0))):
                     related_infos.append(i)
@@ -222,6 +224,7 @@ def run(filepath, year):
     count = 0
     ollama.create(model='JudgeModel', from_='deepseek-r1:7b',
                   system="You're a language model for determining the hierarchical relationships of Chinese officials.")
+
 
     if not os.path.exists(resfilepath):
         df_init = pd.DataFrame(columns=["person_id", "name", "experience", "superiors"])
