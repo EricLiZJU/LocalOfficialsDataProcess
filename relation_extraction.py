@@ -10,6 +10,9 @@ import time
 import os
 import json
 import torch
+import signal
+import threading
+
 
 logging.basicConfig(filename='example.log',  # 日志文件
                     level=logging.DEBUG,
@@ -17,8 +20,6 @@ logging.basicConfig(filename='example.log',  # 日志文件
 
 with open('OfficialRank.json', 'r', encoding='utf-8') as file:
     offcial_rank = json.load(file)
-
-device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
 
 
 # 检查某一年份是不是在begin_time和end_time之间
@@ -32,6 +33,7 @@ def year_check(year, begin_date, end_date):
     else:
         return False
 
+
 # 检查两个时间段是否有重合
 def overlap_check(begin_date_tocheck, end_date_tocheck, begin_date, end_date):
     if end_date_tocheck < begin_date:
@@ -40,6 +42,7 @@ def overlap_check(begin_date_tocheck, end_date_tocheck, begin_date, end_date):
         return False
     else:
         return True
+
 
 # 检索包含给定年份的所有工作经历
 def get_time_related_experiences(year, leader_infos):
@@ -55,6 +58,7 @@ def get_time_related_experiences(year, leader_infos):
 
     return filtered_df
 
+
 # 通过person_id检索姓名
 def id2name(person_id, leader_infos):
     names = []
@@ -65,6 +69,7 @@ def id2name(person_id, leader_infos):
     if len(name) == 0:
         return 'null'
     return name[0]
+
 
 # 通过姓名检索person_id
 def name2id(prov_leader, leader_infos):
@@ -82,21 +87,21 @@ def name2id(prov_leader, leader_infos):
     else:
         return id
 
+
 # 从excel表中提取人员信息
 def chart2info(df):
-
     PersonID_List = df['PersonID'].unique()
 
     leader_infos = []
 
     for person_id in PersonID_List:
         experience_list = []
-        filtered_df = df[df['PersonID']==person_id]
+        filtered_df = df[df['PersonID'] == person_id]
         prov_leader = filtered_df['prov_leader'].iloc[0]
         for row in filtered_df.itertuples():
-            begin_time = row.beginTime           # 工作经历开始时间
-            end_time = row.endTime               # 工作经历结束时间
-            location1 = str(row.localKey1)       # 工作地点
+            begin_time = row.beginTime  # 工作经历开始时间
+            end_time = row.endTime  # 工作经历结束时间
+            location1 = str(row.localKey1)  # 工作地点
             location2 = str(row.localKey2)
             location3 = str(row.localKey3)
             if location1 == 'nan':
@@ -106,8 +111,8 @@ def chart2info(df):
             if location3 == 'nan':
                 location3 = ''
             location = location1 + location2 + location3
-            type = row.type                      # 工作单位性质
-            rank = row.rank                      # 行政级别
+            type = row.type  # 工作单位性质
+            rank = row.rank  # 行政级别
             if rank in offcial_rank.keys():
                 rank = offcial_rank[rank]
             else:
@@ -125,7 +130,7 @@ def chart2info(df):
             job_name = location + jobKey1 + jobKey2 + jobKey3 + position
             experience = dict(begin_time=begin_time,
                               end_time=end_time,
-                              location=str(location1)+str(location2)+str(location3),
+                              location=str(location1) + str(location2) + str(location3),
                               type=type,
                               rank=rank,
                               job_name=job_name)
@@ -136,6 +141,7 @@ def chart2info(df):
             leader_infos.append(leader_info)
 
     return leader_infos
+
 
 # deepseek判断上下级关系
 def deepseek_judge(tocheck_experience, related_experience):
@@ -148,6 +154,7 @@ def deepseek_judge(tocheck_experience, related_experience):
     response_content = re.sub(r'<think>.*?</think>', '', str(res.message.content), flags=re.DOTALL)
 
     return response_content
+
 
 # 对某特定id检索上下级关系
 def superior_judge(personal_id_tocheck, data):
@@ -163,7 +170,8 @@ def superior_judge(personal_id_tocheck, data):
 
     for tocheck_info in tocheck_infos:
         person_count += 1
-        print(f"待查询人第{person_count}/{len(tocheck_infos)}个职务，待查询人姓名: {tocheck_info['prov_leader']}，待查询人ID: {tocheck_info['person_id']}")
+        print(
+            f"待查询人第{person_count}/{len(tocheck_infos)}个职务，待查询人姓名: {tocheck_info['prov_leader']}，待查询人ID: {tocheck_info['person_id']}")
         print(f"待查询人职务: {tocheck_info['experience']}")
         logging.info(tocheck_info)
 
@@ -174,12 +182,12 @@ def superior_judge(personal_id_tocheck, data):
         for info in tocheck_infos:
             for i in data:
                 if (((((info['experience']['location'] == i['experience']['location']) or
-                        (i['experience']['location'] in info['experience']['location'])))
-                        and (i['experience']['type'] == info['experience']['type']))
+                       (i['experience']['location'] in info['experience']['location'])))
+                     and (i['experience']['type'] == info['experience']['type']))
                         and ((i['experience']['rank'] - info['experience']['rank'] >= 0) and
                              (i['experience']['rank'] - info['experience']['rank'] <= 3)
-                        or (info['experience']['rank'] == 0)
-                        or (i['experience']['rank'] == 0))):
+                             or (info['experience']['rank'] == 0)
+                             or (i['experience']['rank'] == 0))):
                     related_infos.append(i)
 
         info_count = 0
@@ -208,6 +216,7 @@ def superior_judge(personal_id_tocheck, data):
 
     return superior_relations
 
+
 def run(filepath, year):
     wb = Workbook()
     ws = wb.active
@@ -225,7 +234,6 @@ def run(filepath, year):
     ollama.create(model='JudgeModel', from_='deepseek-r1:7b',
                   system="You're a language model for determining the hierarchical relationships of Chinese officials.")
 
-
     if not os.path.exists(resfilepath):
         df_init = pd.DataFrame(columns=["person_id", "name", "experience", "superiors"])
         df_init.to_excel(resfilepath, sheet_name="AllData", index=False)
@@ -234,7 +242,7 @@ def run(filepath, year):
         if (count % 20) == 19:
             ollama.delete(model='JudgeModel')
             ollama.create(model='JudgeModel', from_='deepseek-r1:7b',
-                                  system="You're a language model for determining the hierarchical relationships of Chinese officials.")
+                          system="You're a language model for determining the hierarchical relationships of Chinese officials.")
             print("---提示：模型已刷新---")
         count += 1
         print(f"------------第{count}/{total_num}位查询人------------")
@@ -253,9 +261,6 @@ def run(filepath, year):
 
 if __name__ == '__main__':
     filepath = 'testdata.xlsx'
-
-    run(filepath, 1981)
-
-
-
-
+    for year in range(2002, 2005):
+        print(f'---------------------分析{year}年数据---------------------')
+        run(filepath, year)
