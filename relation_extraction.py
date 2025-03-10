@@ -12,6 +12,9 @@ import json
 import torch
 import signal
 import threading
+import func_timeout
+from func_timeout import func_set_timeout
+
 
 
 logging.basicConfig(filename='example.log',  # 日志文件
