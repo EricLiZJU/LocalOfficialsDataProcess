@@ -23,6 +23,6 @@ def test_time_out(num):
 
 if __name__ == '__main__':
     try:
-        test_time_out(5)
+        test_time_out(1)
     except func_timeout.exceptions.FunctionTimedOut:
         print("Function Timed Out")

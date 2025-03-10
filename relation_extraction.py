@@ -147,6 +147,7 @@ def chart2info(df):
 
 
 # deepseek判断上下级关系
+@func_set_timeout(5)
 def deepseek_judge(tocheck_experience, related_experience):
     res = ollama.chat(model="deepseek-r1:7b",
                       stream=False,
@@ -199,7 +200,11 @@ def superior_judge(personal_id_tocheck, data):
                 continue
             start_time = time.time()
             related_experience = info['experience']['job_name']
-            response_content = deepseek_judge(tocheck_experience, related_experience)
+            try:
+                response_content = deepseek_judge(tocheck_experience, related_experience)
+            except func_timeout.exceptions.FunctionTimedOut:
+                print("判断超时，已自动跳过")
+                continue
             info_count += 1
             end_time = time.time()
 
