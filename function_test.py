@@ -15,11 +15,13 @@ import threading
 import func_timeout
 from func_timeout import func_set_timeout
 
+
 @func_set_timeout(5)
 def test_time_out(num):
     for i in range(10):
         print(i)
         time.sleep(1)
+
 
 if __name__ == '__main__':
     try:

@@ -12,6 +12,7 @@ import json
 import torch
 import signal
 import threading
+import datetime
 import func_timeout
 from func_timeout import func_set_timeout
 
@@ -149,7 +150,7 @@ def chart2info(df):
 # deepseek判断上下级关系
 @func_set_timeout(5)
 def deepseek_judge(tocheck_experience, related_experience):
-    res = ollama.chat(model="deepseek-r1:7b",
+    res = ollama.chat(model="JudgeModel",
                       stream=False,
                       messages=[{"role": "user",
                                  "content":
@@ -209,8 +210,9 @@ def superior_judge(personal_id_tocheck, data):
             end_time = time.time()
 
             execution_time = end_time - start_time
-            print(f"已判断{info_count}/{len(related_infos)}，用时{execution_time}秒")
-            logging.info(f"已判断{info_count}/{len(related_infos)}，用时{execution_time}秒")
+            current_time = datetime.datetime.now().time()
+            print(f"已判断{info_count}/{len(related_infos)}，用时{execution_time}秒，当前时间{current_time}")
+            logging.info(f"已判断{info_count}/{len(related_infos)}，用时{execution_time}秒，当前时间{current_time}")
             if "是" in response_content:
                 superior_infos.append(info)
 
@@ -269,6 +271,6 @@ def run(filepath, year):
 
 if __name__ == '__main__':
     filepath = 'testdata.xlsx'
-    for year in range(2002, 2005):
+    for year in range(2003, 2005):
         print(f'---------------------分析{year}年数据---------------------')
         run(filepath, year)
