@@ -266,11 +266,12 @@ def run(filepath, year):
         with pd.ExcelWriter(resfilepath, mode='w', engine='openpyxl') as writer:
             df_combined.to_excel(writer, sheet_name="AllData", index=False)
         print(f"第{count}/{total_num}位查询人数据已追加")
+        time.sleep(5)
     print("所有数据已处理完成")
 
 
 if __name__ == '__main__':
     filepath = 'testdata.xlsx'
-    for year in range(2003, 2005):
+    for year in range(1991, 1993):
         print(f'---------------------分析{year}年数据---------------------')
         run(filepath, year)
