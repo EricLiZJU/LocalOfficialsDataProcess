@@ -272,6 +272,6 @@ def run(filepath, year):
 
 if __name__ == '__main__':
     filepath = 'testdata.xlsx'
-    for year in range(1991, 1993):
+    for year in range(1995, 1998):
         print(f'---------------------分析{year}年数据---------------------')
         run(filepath, year)
